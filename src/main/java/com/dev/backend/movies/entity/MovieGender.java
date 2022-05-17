@@ -14,12 +14,10 @@ public class MovieGender {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int movieGenderId;
 
-    @Column(name = "movie_id")
     @JoinColumn(name="movie_id", nullable=false)
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Movie movie;
 
-    @Column(name = "gender_id")
     @JoinColumn(name="gender_id", nullable=false)
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Gender gender;

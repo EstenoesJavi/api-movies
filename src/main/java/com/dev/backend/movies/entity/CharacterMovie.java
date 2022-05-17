@@ -14,12 +14,10 @@ public class CharacterMovie {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int characterMovieId;
 
-    @Column(name = "character_id")
     @JoinColumn(name="character_id", nullable=false)
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    private Character character;
+    private Figure character;
 
-    @Column(name = "movie_id")
     @JoinColumn(name="movie_id", nullable=false)
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Movie movie;

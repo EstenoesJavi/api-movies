@@ -1,13 +1,15 @@
 package com.dev.backend.movies.entity;
 
+import lombok.Builder;
 import lombok.Data;
 
 import javax.persistence.*;
 
 @Data
 @Entity
-@Table(name = "character", schema = "movieschallenge")
-public class Character {
+@Builder
+@Table(name = "figure", schema = "movieschallenge")
+public class Figure {
 
     @Id
     @Column(name = "character_id")
