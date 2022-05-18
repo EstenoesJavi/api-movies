@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 
+/**
+ * Clase auxiliar que sirve para manejar los errores del validation
+ */
 @ControllerAdvice
 class ErrorHandlingControllerAdvice {
 
