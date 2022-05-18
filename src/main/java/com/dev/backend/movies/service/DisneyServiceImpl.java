@@ -5,6 +5,8 @@ import com.dev.backend.movies.entity.Figure;
 import com.dev.backend.movies.repository.CharacterRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,21 +23,32 @@ public class DisneyServiceImpl implements DisneyService{
         return null;
     }
 
+    /**
+     * Método que sirve para guardar un personaje en base de datos
+     *
+     * @param characterRequestDto
+     * @return dto con información del personaje incluida las peliculas o series asociadas
+     */
     @Override
-    public Figure saveCharacter(CharacterRequestDto characterRequestDto) {
+    public ResponseEntity<Figure>  saveCharacter(CharacterRequestDto characterRequestDto) {
         log.debug("Init saveCharacter with request: {}", characterRequestDto);
-        Figure characterEntity = null;
+        ResponseEntity<Figure> responseEntity = null;
         try {
-            Figure character = Figure.builder().name(characterRequestDto.getName())
-                    .image(characterRequestDto.getImage()).age(characterRequestDto.getAge())
-                    .history(characterRequestDto.getHistory()).weigth(characterRequestDto.getWeigth()).build();
+            var optionalCharacter = this.characterRepository.findByNameIgnoreCase(characterRequestDto.getName());
+            if (optionalCharacter.isEmpty()){
+                Figure character = Figure.builder().name(characterRequestDto.getName())
+                        .image(characterRequestDto.getImage()).age(characterRequestDto.getAge())
+                        .history(characterRequestDto.getHistory()).weigth(characterRequestDto.getWeigth()).build();
 
-            characterEntity = this.characterRepository.save(character);
+                responseEntity= new ResponseEntity<>(this.characterRepository.save(character), HttpStatus.CREATED) ;
+            }else {
+                responseEntity= ResponseEntity.ok().build();
+            }
         } catch (Exception e){
-            e.getMessage();
+            log.debug("Error {}",e.getMessage());
+            responseEntity= ResponseEntity.internalServerError().build() ;
         }
-
-        return characterEntity;
+        return responseEntity;
     }
 
     @Override

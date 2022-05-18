@@ -3,9 +3,11 @@ package com.dev.backend.movies.controller;
 import com.dev.backend.movies.domain.CharacterRequestDto;
 import com.dev.backend.movies.service.DisneyService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.dev.backend.movies.entity.Figure;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -20,7 +22,7 @@ public class DisneyController {
     }
 
     @PostMapping(value = "/character")
-    public Figure saveCharacter(
+    public ResponseEntity<Figure>  saveCharacter(@Valid
             @RequestBody(required = true) CharacterRequestDto characterRequestDto) {
         return this.disneyService.saveCharacter(characterRequestDto);
     }

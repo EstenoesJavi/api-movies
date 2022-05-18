@@ -1,13 +1,19 @@
 package com.dev.backend.movies.entity;
 
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 
-@Data
+/**
+ * Clase que sirve para mapear los datos de la tabla personaje
+ */
+@Getter
+@Setter
 @Entity
+@ToString
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "figure", schema = "movieschallenge")
 public class Figure {
 
